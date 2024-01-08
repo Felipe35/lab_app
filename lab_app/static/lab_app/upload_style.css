@@ -1,0 +1,74 @@
+/* Upload Form Styles */
+.container{
+    margin: 1rem auto;
+    padding: 1em;
+    max-width: 25rem;
+    height: 100%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+}
+
+.form-control {
+    height: 18rem;
+    justify-content: space-evenly;
+}
+
+.form-input-search{
+    border: solid 1.5px #D3D3D3
+}
+
+.form-control label{
+    color: #2f3235;
+}
+
+.form-control input:hover{
+    box-shadow: 0 0 5pt 0.5pt #828fee;
+}
+
+.form-control input:focus{
+    box-shadow: 0 0 5pt 2pt #828fee;
+    outline-width: 0px;
+}
+
+/* Attach Styles Btn */
+
+.form-control button{
+    background-color: #5965cd;
+    padding: 8px;
+    border: none;
+}
+
+.form-control button, .bi-paperclip{
+    color: white;
+    font-size: 1rem;
+}
+
+.bi-paperclip{
+    margin-right: 1rem;
+}
+
+.form-control button:hover, .bi-paperclip:hover{
+    background-color: #9a9fd5;
+}
+
+/* Error Message */
+
+.error-status{
+    text-align: center;
+    color: #f43a3a;
+}
+
+.error-status a{
+    background-color:#5965cd;
+    border: none;
+}
+
+.error-status a:hover{
+    background-color:#828fee ;
+}
+
+.bi-arrow-bar-left{
+    margin-right: 1rem;
+}

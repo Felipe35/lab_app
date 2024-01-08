@@ -1,0 +1,36 @@
+
+*{
+    font-family: Raleway, Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.container-form{
+    margin: 1rem auto;
+    padding: 2em;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.form-control label{
+    padding: 1rem;
+}
+
+.form-control button{
+    margin-top: 1rem;
+    background-color: #5965cd;
+    padding: 2px 20px 2px 20px;
+    border: none;
+    width: 100%;
+    
+}
+
+.form-control button{
+    color: white;
+}
+
+.form-control button:hover{
+    background-color: #9da6eb;
+    color: white;
+}
+
+.bi-box-arrow-right{
+    margin-right: 1rem;
+}

@@ -1,0 +1,100 @@
+/* Search Form Styles */
+
+.container{
+    margin: 1rem auto;
+    padding: 1em;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background-color: white;
+}
+
+.container-form{
+    display: flex;
+    padding: 1rem 0rem 1rem 0rem;
+    
+}
+
+.container-form label {
+    margin-right: 1rem;
+}
+
+.container-form input{
+    border: solid 1.5px #D3D3D3
+}
+
+.container-form input:hover{
+    box-shadow: 0 0 5pt 0.5pt #828fee;
+}
+
+.container-form input:focus{
+    box-shadow: 0 0 5pt 2pt #828fee;
+    outline-width: 0px;
+}
+
+
+.container-form  button{
+    background-color: #5965cd;
+    padding: 0rem 1rem 0rem 1rem;
+    border: none;
+    color: white;
+}
+
+.container-form  button:hover{
+    background-color: #828fee;
+}
+
+/* Table Styles */
+
+.table thead tr {
+    background-color: #5965cd;
+    color: #ffffff;
+}
+
+.table th,
+.table td {
+    padding: 2px 2px;
+    
+}
+
+.table th{
+    font-size: 15px;
+}
+
+.table td{
+    
+    font-size: 12px;
+}
+
+
+.table tbody tr {
+    border-bottom: 1px solid #b9bde0;
+}
+
+.table tbody tr:last-of-type {
+    border-bottom: 2px solid #5965cd;
+}
+
+.table tbody tr.active-row {
+    color: rgb(51, 47, 47);
+}
+
+/* Icons Table Style */
+
+.bi-eye-fill{
+    font-size: 1.5rem;
+    color: #5965cd;
+}
+
+.bi-eye-fill:hover{
+    color: #e051c3;
+}
+
+
+
+/* .form-control input:hover{
+    box-shadow: 0 0 5pt 0.5pt #828fee;
+}
+
+.form-control input:focus{
+    box-shadow: 0 0 5pt 2pt #828fee;
+    outline-width: 0px;
+} */

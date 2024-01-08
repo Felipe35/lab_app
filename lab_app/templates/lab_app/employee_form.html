@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %} 
+
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "lab_app/patient_form.css" %}">
+    <link rel="stylesheet" href="{% static "lab_app/query.css" %}">
+{% endblock  %}
+
+{% block title %}Nuevo Paciente{% endblock %}
+
+{% block content %}
+<main>
+    <section class="container content-wrap">
+        <form action="" method="POST" autocomplete="off">
+            {% csrf_token %}
+            <div class="form_control {% if form.full_name.errors and form.address.errors and form.age.errors %}errors{% endif %}">
+                {{form.full_name|as_crispy_field}}
+                {{form.full_name.errors}}
+                {{form.address|as_crispy_field}}
+                {{form.address.errors}}
+            </div>
+
+            <div class="row"> 
+                <div class="col-md-4">
+                    {{form.age|as_crispy_field}}
+                    {{form.age.errors}}
+                </div>
+                <div class="col-md-4">
+                    {{form.p_number|as_crispy_field}}
+                </div>
+                <div class="col-md-4">
+                    {{form.s_number|as_crispy_field}}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-sm-8"> 
+                    <button type="submit" class="btn btn-success btn-block btn-lg">
+                        <i class="bi bi-floppy"></i>Guardar</button>
+                </div>
+                
+                <div class="col-12 col-sm-4"> 
+                    <a href="{% url 'patient_list' %}" class="btn btn-secondary btn-block btn-lg">
+                        <i class="bi bi-arrow-bar-left"></i>Atras
+                    </a>
+                </div>
+            </div>    
+        </form> 
+    </section> 
+    
+    <footer class="simple-footer text-center text-lg-start">
+        <!-- Copyright -->
+        <div class="text-center p-3">
+        © 2024 Copyright:
+        <a class="text-body text-decoration-none" href="#">felipephe.com</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+</main>
+
+{% endblock  %}
+
+
+
+
+ {% comment %} <div class="col-md-8"> 
+    <button type="submit" class="btn btn-success btn-block btn-lg"><i class="fas fa-database"></i>
+        Submit</button>
+</div>
+<div class="col-md-4">
+    <a href="{% url 'patient_list' %}" class="btn btn-secondary btn-block btn-lg">
+        <i class="fas fa-stream"></i> Back to list
+    </a>
+</div>
+</div>  {% endcomment %}

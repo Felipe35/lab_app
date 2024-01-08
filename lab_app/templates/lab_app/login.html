@@ -1,0 +1,74 @@
+{% comment %} {% extends "base.html" %}
+
+{% block title %}Login Section{% endblock  %}
+
+{% block content %} {% endcomment %}
+
+<!DOCTYPE html>
+<html lang="en">
+{% load crispy_forms_tags %}
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% comment %} Google Fonts {% endcomment %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    {% comment %} Login Styles {% endcomment %}
+    <link rel="stylesheet" href="{% static "lab_app/login.css" %}">
+    {% comment %} Bootsrap {% endcomment %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <title>Login</title>
+</head>
+<body>
+    <section class="container container-error">
+            {% if message %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>{{message}}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endif %}
+    </section>
+    <main class="container container-form">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="form-control {% if form.user_name.errors and form.password.errors %}errors{% endif %}">
+            {{form.user_name|as_crispy_field}}
+            {{form.password|as_crispy_field}}
+            {{form.user_name.errors}}
+            {{form.password.errors}}
+            <div class="container">
+                <div class="row">
+                    <div class="col-12"> 
+                        <button type="submit" class="btn btn-block btn-lg">Entrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% comment %} <label>User Name</label>
+        <input type="text" name="user_name">
+        <label>Password</label>
+        <input type="text" name="password">
+         {% endcomment %}
+         
+            
+    </form>
+</main>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</html>
+   
+    {% comment %} <form action="/" method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-control {% if form.user_name.errors %}errors{% endif %}">
+            {{field.label_tag}}
+            {{field}}
+            {{field.errors}}
+        </div>
+        {% endfor %}
+    </form> {% endcomment %}
+{% comment %}     
+{% endblock %} {% endcomment %}

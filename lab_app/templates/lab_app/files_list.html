@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static "lab_app/files_styles.css" %}">
+{% endblock  %}
+
+{% block title %}Lista de Archivos | Pacientes{% endblock  %}
+{% block content %}
+<main class="container">
+    {% comment %} <form method="GET">
+        {% csrf_token %}
+        <div class="container-form">
+            <label>Paciente ID</label>
+            <input type="number" name="filter" value="{{filter}}"> 
+            <button class="btn btn-primary"  type="submit">Buscar</button>
+        </div>
+    </form> {% endcomment %}
+    {% comment %} Filter {% endcomment %}
+    <form method="GET" action="{% url 'patient-files-list' %}">
+        <div class="container-form d-flex p-2">    
+            {{ form.as_p}}
+            <button class="btn btn-primary" type="submit">Buscar</button>
+        </div>
+    </form>
+   
+    <table class="table">
+        <thead>
+        <tr>
+            
+            <th scope="col">Paciente ID</th>
+            <th scope="col">Nombre Completo</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Archivo</th>
+            <th scope="col">Ver Archivo</th>
+        </thead>
+        <tbody>
+        {% for patient in files %}
+            <tr>
+                {% comment %} <td>{{patient.id}}</td> {% endcomment %}
+                <td>{{patient.patient.id}}</td>
+                <td>{{patient.patient.full_name|title}}</td>
+                {% language 'es' %}
+                <td><time>{{patient.date|date:"d M Y"}}</time></td>
+                {% endlanguage %}
+                <td>{{patient}}</td>
+                
+
+                <td>
+                    <a href="{% url 'file_view' patient.id %}" target="_blank" class="btn text-secondary px-0">
+                        <i class="bi bi-eye-fill"></i>
+                    </a>
+                </td>
+                
+                
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% comment %} Pagination Section {% endcomment %}
+    {% if is_paginated %}
+    <div class="mt-2">
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li class="page-item"> 
+                    <a href="?page={{ page_obj.previous_page_number }}" class="page-link">Anterior</a>
+                </li>
+            {% endif %}
+
+            {% for i in paginator.page_range %}
+                
+                {% if page_obj.number == i %}
+                    <li class="page-item active">
+                        <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li class="page-item"> 
+                <a href="?page={{ page_obj.next_page_number }}" class="page-link">Siguiente</a>
+            </li>
+            {% endif %}
+
+        </ul>
+    </div>
+{% endif %}
+
+    
+</main>
+{% endblock %}

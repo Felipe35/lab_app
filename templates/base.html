@@ -1,0 +1,77 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% comment %} Meta Data {% endcomment %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% comment %} Browser Icon {% endcomment %}
+    <link rel="icon" type="image/x-icon" href="static/my_lab/images/lab_logo_blue.svg">
+    {% comment %} Boostrap {% endcomment %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+
+    {% comment %} Google Fonts {% endcomment %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    {% comment %} Styles {% endcomment %}
+    <link rel="stylesheet" href="{% static "app.css" %}">
+    {% block css_files %}{% endblock  %}
+    {% comment %} Title {% endcomment %}
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-light navbar-light">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-toggler" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                {% comment %} navbarNav {% endcomment %}
+              <div class="collapse navbar-collapse" id="navbar-toggler">
+                  <div class="container-img-lab" >
+                    <div>
+                      <img src="{% static "my_lab/images/pro_logo.svg" %}" class="nav_logo" width="60" alt="Lab Logo">
+                    </div>
+                    <div class="container-text">
+                      <h1>Laboratorio Clinico</h1>
+                      <p>Create by Andres Felipe Penaranda Hernandez</p>
+                    </div>
+                </div>
+                <ul class="navbar-nav d-flex justify-content-center align-items-center">
+                  <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{% url 'patient_list' %}">Listado de Pacientes</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'patient-files-list' %}">Pacientes - Archivos</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'upload' %}">Subir Archivo</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+    </header>
+    {% block content %}
+    {% endblock %}
+    
+    {% comment %} Footer {% endcomment %}
+    {% block footer %}
+    {% endblock %}
+
+    {% comment %} <footk"simple-footer text-center text-lg-start">
+      <!-- Copyright -->
+      <div class="text-center p-3">
+        © 2024 Copyright:
+        <a class="text-body" href="#">felipephe.com</a>
+      </div>
+      <!-- Copyright -->
+    </footer> {% endcomment %}
+    
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="{% static "nav_js.js" %}" ></script>
+</html>

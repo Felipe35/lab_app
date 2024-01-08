@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %} 
+{% load i18n %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "lab_app/patient_list.css" %}">
+{% endblock  %}
+
+
+
+{% block title %}Listado de Pacientes{% endblock  %}
+
+{% block content %}
+<main>
+    {% comment %} Modal Window {% endcomment %}
+    <div class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+    <section class="content-wrap">
+        <section class="container">
+            {% if is_paginated %}
+                <div class="mt-2">
+                    <ul class="pagination">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item"> 
+                                <a href="?page={{ page_obj.previous_page_number }}" class="page-link">Anterior</a>
+                            </li>
+                        {% endif %}
+
+                        {% for i in paginator.page_range %}
+                            
+                            {% if page_obj.number == i %}
+                                <li class="page-item active">
+                                    <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item">
+                                    <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                        <li class="page-item"> 
+                            <a href="?page={{ page_obj.next_page_number }}" class="page-link">Siguiente</a>
+                        </li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+            {% endif %}
+            {% comment %} ACA VA EL BUSCADOR {% endcomment %}
+            <section class='contianer-filter-queries'>
+                <form method="GET" action="{% url 'patient_list' %}">
+                    <div class="container-form d-flex p-2">    
+                        {{ form.as_p}}
+                        <button class="btn btn-primary" type="submit">Buscar</button>
+                    </div>
+                </form>
+                <div class="container-queries">
+                    Total Pacientes: {{total_patients}} 
+                </div> 
+            </section>
+           
+            <table class="table">
+                <thead>
+                <tr>
+                    
+                    <th scope="col">Paciente ID</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Nombre Completo</th>
+                    <th scope="col">Edad</th>
+                    <th scope="col">Direccion</th>
+                    <th scope="col">Telefono</th>
+                    <th scope="col">Tel: Opcional</th>
+                    <th scope="col">Acciones</th>
+                    <th scope="col">
+                        <a href="{% url 'employe_insert' %}" class="btn-add btn-outline-succes">
+                            <i class="bi bi-person-add"></i>Paciente
+                        </a>
+                    </th>
+                </tr>
+                
+                </thead>
+                <tbody>
+                {% for employe in patients %}
+                    <tr class="active-row">
+                        <td>{{employe.id}}</td>
+                        {% language 'es' %}
+                        <td>{{employe.date|date:"d M Y"}}</td>
+                        {% endlanguage %}
+                        <td>{{employe.full_name|title}}</td>
+                        <td>{{employe.age}}</td>
+                        <td>{{employe.address}}</td>
+                        <td>{{employe.p_number}}</td>
+                        {% if employe.s_number == None %}
+                            <td>----</td>
+                        {% else %}
+                        <td>{{employe.s_number}}</td>
+                        {% endif %}
+                        <td>
+                            <a href="{% url 'employe_update' employe.id%}" class="btn text-secondary px-0">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                        
+                            <form action="{% url "patient_delete" employe.id %}" method="POST" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% comment %} Pagination Section {% endcomment %}
+
+            {% if is_paginated %}
+                <div class="mt-2">
+                    <ul class="pagination">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item"> 
+                                <a href="?page={{ page_obj.previous_page_number }}" class="page-link">Anterior</a>
+                            </li>
+                        {% endif %}
+
+                        {% for i in paginator.page_range %}
+                            
+                            {% if page_obj.number == i %}
+                                <li class="page-item active">
+                                    <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item">
+                                    <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                        <li class="page-item"> 
+                            <a href="?page={{ page_obj.next_page_number }}" class="page-link">Siguiente</a>
+                        </li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+            {% endif %} 
+        </section>
+    </section>
+    {% comment %} <footer class="simple-footer text-center text-lg-start">
+        <!-- Copyright -->
+        <div class="text-center p-3">
+        © 2024 Copyright:
+        <a class="text-body" href="#">felipephe.com</a>
+        </div>
+        <!-- Copyright -->
+    </footer> {% endcomment %}
+    <div class="modal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Modal title</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+</main>
+{% endblock %}
