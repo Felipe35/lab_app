@@ -1,8 +1,8 @@
-Introduction
+##Introduction
 This is a Monolith CRUD web applications that fix some issues on
-a small laboratory business.
+a small laboratory business using Django as framework.
 
-Why is the reason of this we app?
+###Why is the reason of this we app?
 The main goal is to solve few things that the laboratory had, as part
 of data base management, pdf file storing, dependence on the use of
 excel. One of the main problems of this laboratory is the amount of
@@ -17,68 +17,79 @@ The laboratory also have some potential improvments in the future
 that I think I can solve latter. Such as: create a form to write
 their laboratory results and so on.
 
-What the app can do?
-The web application use Django as framework to populate data and
-can be interpolate into Django templates. Also the web app use
-relational data base to reduce the amount of repeated data. Using
-a 2 normal form as well as one-to-many relationship helps enough to
-this small application. The application is capable to CRUD "create,
-read, update, delete" the data base in a user friendly way, also
+###What the app can do?
+The application is capable to CRUD "create, read, update, delete" the data base in a user friendly way, also
 provides with a basic navegation to go around urls that can do
 few operations.
+- Here an example:
+
+![](https://ibb.co/CQVsB5V)
 
 Ofcourse the application handles well basic errors of typing, and
 does not allow to leave few inputs in blank.
 
+![](https://ibb.co/2dq62XQ)
+
 Styling was important but not to much. Using Bootstrap and CSS was
 really enough to achive what this application needs. 
 
-About DataBase
-The company was used to filter patients by their full name, and
-advice was given to not have a full name on their db, because
-this can leads on redundacy problems in future. However the
-implementation of a filter was enough to solve this input in full
-name. Django has filter library that can handles a lot of types
-of filters, so "icontains" property was crucial to filter patients
-without typing the exact full name, because the filter "icontains"
-can populate all records that macth certain criteria.
+###About DataBase
+- One to many relation tables.
+- Tables with 2nd normal form.
+- SQLite3 db
+- Tables (Files - Patients)
 
-The db was implemented in one-to-many because the laboratory only
-has personal information about the patient and files storing.
-The personal information was quite simple and was not neccesary
-to split the table in others forms. Patient and File tables where
-File table has the Fk associate to the Patient, because one patient
-could have one or more files attacht it.
+In conclusion the data base implementation was simple, due to the needs. The CRUD desing was mainly integrate with the respective tables using JOIN clause to work with them. Another features were added, such as filters to get data to a corresponding input.
 
-Few properties were added to the models db.
-
-About Views
+### About Views
 Views were implemented by class view. At start stage, functions were
 implemented but then, was really need to change to something more
 abstract and less code, and that's where class view can do.
 
-About Templates
+- Django View Sample: Fecth data and list it to the browser.
+
+```python
+class PatientFileListView(ListView):
+    queryset = File.objects.all()
+    template_name = "lab_app/files_list.html"
+    model = File
+    ordering = ["id"]
+    context_object_name = "files"
+    paginate_by = 200
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.filterset = FileFilter(self.request.GET, queryset=queryset)
+        return self.filterset.qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+      
+        context['form'] = self.filterset.form
+        return context
+```
+###About Templates
 Separete html files were split into Django templates to work better and
 have better understanding as well as the elimination of having all files
 in one place. Loops and if else statments played really well when 
 presenting data organized and concise
 
-About Uploads
+###About Uploads
 Django provides with images and files uploading system that can
 fecth through the upload file system path. The settings as well as
 the urls.py were setting up in a secure way to protect and display
 pdf files on this case.s
 
-
-Problems
+###Problems
 The application have few problems that later will be implemented.
-Because only one person will use this program, it will be ok
-for the moment.
-User authentication: Although the application has a login page
+
+Because only one person will use this program, it will be ok for the moment.
+
+- User authentication: Although the application has a login page
 and does not allow to view other urls without passing the user
 and passwords correct; if I know the urls path I can navigate to
 the application
-Pagination: Although the application has pagination, it will need
+- Pagination: Although the application has pagination, it will need
 in the future to have infinity pagination. However because is a 
 really small laboratory the pagination on this stage is ok but not
 effucient. A pagination of 100 per page was giving base on the amount
@@ -92,7 +103,6 @@ to keep removing the need of using excel as a program. To mention
 that the application will be running in AWS in a free tier, using
 PostgreSQL.
 
-Technologies
+###Technologies
 Using Python Django Framework, HTML, CSS, to work on the backend 
 and basic frontend.
-
