@@ -12,13 +12,19 @@ The laboratory also have some potential improvments in the future that I think I
 ### What the app can do?
 The application is capable to CRUD "create, read, update, delete" the data base in a user friendly way, also provides with a basic navegation to go around urls that can do few operations.
 
+##### Table of Patients
+![Patient Table](https://i.ibb.co/5xtVJyc/patient-lists.png)
+
 Ofcourse the application handles well basic errors of typing, and
 does not allow to leave few inputs in blank.
+##### File Form
+![File Upload](https://i.ibb.co/kSC6pBL/upload-error.png)
 
 Styling was important but not to much. Using Bootstrap and CSS was
 really enough to achive what this application needs.
 
 ### About DataBase
+
 - One to many relation tables.
 - Tables with 2nd normal form.
 - SQLite3 db
@@ -58,6 +64,18 @@ Separete html files were split into Django templates to work better and have bet
 
 ### About Uploads
 Django provides with images and files uploading system that can fecth through the upload file system path. The settings as well as the urls.py were setting up in a secure way to protect and display pdf files on this case.
+```python
+class FileForm(forms.ModelForm):
+
+    class Meta:
+        model = File
+        # fields = "__all__"
+        exclude = ("patient", "date")
+        labels = {
+            "user_file": "Nombre de Archivo",
+            "date": "Fecha"
+        }
+```
 
 ### Problems
 The application have few problems that later will be implemented.
@@ -68,7 +86,10 @@ Because only one person will use this program, it will be ok for the moment.
 - Pagination: Although the application has pagination, it will need in the future to have infinity pagination. However because is a really small laboratory the pagination on this stage is ok but not effucient. A pagination of 100 per page was giving base on the amount of records thye used to have per year.
 
 ### Conclusion
-This is in general of what the application can do, and only does what the company really wanted to do, without using extra features that they do not need. Later, new implementations will be added to keep removing the need of using excel as a program.
+This is in general a brief intro of what the application can do, and only does what is necessary. Later, new implementations will be added to keep removing the need of using excel sheets.
 
 ### Technologies
-Using Python Django Framework, HTML, CSS, to work on the backend and basic frontend.
+| Backend  | Data Base  | Front End |
+| :------------ |:---------------:| -----:|
+| Python      | SQLite3 | HTML - CSS - Js |
+|    Django  |   |  Bootstrap |
